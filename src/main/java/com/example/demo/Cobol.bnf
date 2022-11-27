@@ -81,14 +81,14 @@ display_statement           ::= DISPLAY {literal | data_name}+
 
 line_num                    ::= INT_VALUE
 
-data_level ::= INT_VALUE
+data_level                  ::= INT_VALUE
 
-program_name ::= STRING
+program_name                ::= STRING
 
-data_name ::= STRING
+data_name                   ::= STRING
 
-paragraph_name ::= STRING
+paragraph_name              ::= STRING
 
-repeat_value ::= INT_VALUE
+repeat_value                ::= INT_VALUE
 
-literal ::= INT_VALUE | APOSTROPH STRING APOSTROPH
+literal                     ::= INT_VALUE | APOSTROPH STRING APOSTROPH

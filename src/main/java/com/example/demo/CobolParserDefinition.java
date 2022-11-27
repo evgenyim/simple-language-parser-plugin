@@ -12,9 +12,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
-import com.example.demo.CobolParser;
 import com.example.demo.psi.CobolFile;
-import com.example.demo.psi.CobolTokenSets;
 import com.example.demo.psi.CobolTypes;
 import org.jetbrains.annotations.NotNull;
 
