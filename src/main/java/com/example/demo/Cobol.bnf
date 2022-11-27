@@ -1,0 +1,94 @@
+{
+  parserClass="com.example.demo.CobolParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Cobol"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.example.demo.psi"
+  psiImplPackage="com.example.demo.psi.impl"
+
+  elementTypeHolderClass="com.example.demo.psi.CobolTypes"
+  elementTypeClass="com.example.demo.psi.CobolElementType"
+  tokenTypeClass="com.example.demo.psi.CobolTokenType"
+
+}
+
+cobolFile                   ::= id_division
+                                [data_division]
+                                [procedure_division]
+
+id_division                 ::= id_entry_line
+                                id_line
+
+id_entry_line               ::= line_num ID_DIV SEP
+
+id_line                     ::= line_num PROG_ID SEP program_name SEP
+
+data_division               ::= data_division_entry
+                                data_ws_entry
+                                {data_item_line}*
+
+data_division_entry         ::= line_num DATA_DIV SEP
+
+data_ws_entry               ::= line_num WS_SEC SEP
+
+data_item_line              ::= line_num data_item_entry SEP
+
+data_item_entry             ::= data_level data_name data_description
+
+data_description            ::= PIC (INT_SPEC|STRING_SPEC) [data_len] data_value_clause
+
+data_len                    ::= PAREN_OPEN repeat_value PAREN_CLOSE
+
+data_value_clause           ::= VALUE literal
+
+procedure_division          ::= procedure_division_entry
+                                paragraphs
+
+procedure_division_entry    ::= line_num PROC_DIV SEP
+
+paragraphs                  ::= {sentence}* {paragraph}*
+
+paragraph                   ::= paragraph_name_entry
+                                {sentence}*
+
+paragraph_name_entry        ::= line_num paragraph_name SEP
+
+sentence                    ::= statement_list SEP
+
+statement_list              ::= {line_num statement}+
+
+statement                   ::= perform_statement | stop_statement | display_statement
+
+perform_statement           ::= PERFORM paragraph_name varying_phase
+
+varying_phase               ::= varying_var from_statement by_statement until_statement
+
+varying_var                 ::= VARYING data_name
+
+from_statement              ::= FROM (data_name | literal)
+
+by_statement                ::= BY (data_name | literal)
+
+until_statement             ::= UNTIL condition
+
+condition                   ::= data_name EQ (data_name | literal)
+
+stop_statement              ::= STOP (RUN | paragraph_name)
+
+display_statement           ::= DISPLAY {literal | data_name}+
+
+line_num                    ::= INT_VALUE
+
+data_level ::= INT_VALUE
+
+program_name ::= STRING
+
+data_name ::= STRING
+
+paragraph_name ::= STRING
+
+repeat_value ::= INT_VALUE
+
+literal ::= INT_VALUE | APOSTROPH STRING APOSTROPH
